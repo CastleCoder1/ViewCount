@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience View Count</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #viewCount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0079c1;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Experience Views:</h2>
+    <p id="viewCount">Loading...</p>
+
+    <script>
+        async function fetchViewCount() {
+            const itemId = "251764857ea44877a4997cbfcb4863bb";  // Your Experience ID
+            const url = `https://www.arcgis.com/sharing/rest/content/items/${itemId}?f=json`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                if (data.numViews) {
+                    document.getElementById("viewCount").innerText = data.numViews;
+                } else {
+                    document.getElementById("viewCount").innerText = "Error fetching data";
+                }
+            } catch (error) {
+                document.getElementById("viewCount").innerText = "Failed to load";
+                console.error("Error fetching view count:", error);
+            }
+        }
+
+        fetchViewCount();
+    </script>
+
+</body>
+</html>
