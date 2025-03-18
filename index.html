@@ -9,11 +9,22 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            font-size: 28px;
+            color: #333;
         }
         #viewCount {
-            font-size: 24px;
+            font-size: 36px;
             font-weight: bold;
             color: #0079c1;
+            margin-top: 10px;
+        }
+        .refreshNote {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -21,6 +32,7 @@
 
     <h2>Experience Views:</h2>
     <p id="viewCount">Loading...</p>
+    <p class="refreshNote">This updates every 60 seconds.</p>
 
     <script>
         async function fetchViewCount() {
@@ -33,7 +45,7 @@
                 const data = await response.json();
 
                 if (data.numViews !== undefined) {
-                    document.getElementById("viewCount").innerText = data.numViews;
+                    document.getElementById("viewCount").innerText = data.numViews.toLocaleString(); // Adds commas for readability
                 } else {
                     document.getElementById("viewCount").innerText = "View count unavailable";
                 }
@@ -43,7 +55,11 @@
             }
         }
 
+        // Fetch view count immediately
         fetchViewCount();
+
+        // Refresh every 60 seconds
+        setInterval(fetchViewCount, 60000);
     </script>
 
 </body>
