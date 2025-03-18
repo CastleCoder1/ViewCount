@@ -37,16 +37,14 @@
     <script>
         async function fetchViewCount() {
             const itemId = "251764857ea44877a4997cbfcb4863bb";  // Your Experience ID
-            const apiUrl = `https://www.arcgis.com/sharing/rest/content/items/${itemId}?f=json`;
+            const apiUrl = `https://www.arcgis.com/sharing/rest/content/items/${itemId}?f=json&callback=?`;
 
             try {
-                // Alternative CORS proxy: Use 'https://api.allorigins.win' (a more stable option)
-                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`);
+                const response = await fetch(apiUrl);
                 const data = await response.json();
-                const parsedData = JSON.parse(data.contents); // Extract JSON from proxy response
 
-                if (parsedData.numViews !== undefined) {
-                    document.getElementById("viewCount").innerText = parsedData.numViews.toLocaleString(); // Adds commas
+                if (data.numViews !== undefined) {
+                    document.getElementById("viewCount").innerText = data.numViews.toLocaleString(); // Adds commas
                 } else {
                     document.getElementById("viewCount").innerText = "View count unavailable";
                 }
