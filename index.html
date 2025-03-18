@@ -25,15 +25,17 @@
     <script>
         async function fetchViewCount() {
             const itemId = "251764857ea44877a4997cbfcb4863bb";  // Your Experience ID
-            const url = `https://www.arcgis.com/sharing/rest/content/items/${itemId}?f=json`;
+            const apiUrl = `https://www.arcgis.com/sharing/rest/content/items/${itemId}?f=json`;
 
             try {
-                const response = await fetch(url);
+                // Fetch data using a public CORS proxy
+                const response = await fetch(`https://corsproxy.io/?${encodeURIComponent(apiUrl)}`);
                 const data = await response.json();
-                if (data.numViews) {
+
+                if (data.numViews !== undefined) {
                     document.getElementById("viewCount").innerText = data.numViews;
                 } else {
-                    document.getElementById("viewCount").innerText = "Error fetching data";
+                    document.getElementById("viewCount").innerText = "View count unavailable";
                 }
             } catch (error) {
                 document.getElementById("viewCount").innerText = "Failed to load";
