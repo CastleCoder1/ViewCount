@@ -37,7 +37,7 @@
     <script>
         async function fetchViewCount() {
             const itemId = "251764857ea44877a4997cbfcb4863bb";  // Your Experience ID
-            const apiUrl = `https://www.arcgis.com/sharing/rest/content/items/${itemId}?f=json&callback=?`;
+            const apiUrl = `https://jsonproxy.io/api?url=${encodeURIComponent(`https://www.arcgis.com/sharing/rest/content/items/${itemId}?f=json`)}`;
 
             try {
                 const response = await fetch(apiUrl);
